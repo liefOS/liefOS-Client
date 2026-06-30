@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>liefOS</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://web-liefos.netlify.app/;">
+  <link rel="stylesheet" href="./Client/Assets/Resources/Boot.css">
+</head>
+<body>
+  <div id="DeveloperIndicator"><span id="DevelopmentVersionInfo"></span> <br> <small id="CopyrightText"></small></div>
+
+  <div id="ClientBackground"></div>
+
+  <img class="liefOSLogo" src="./Client/Assets/Icons/white.png" alt="liefOS">
+
+  <div id="ClientStatus"></div>
+  <div id="ClientProgress">
+    <div class="ProgressBar">
+      <div class="ProgressBarState" id="ProgressBarState"></div>
+    </div>
+    <div id="ProgressBarStatus"></div>
+    <button class="Button cancel" id="CancelButton"></button>
+  </div>
+
+  <div id="Buttons">
+    <button class="Button primary" id="ActionButton"></button>
+    <button class="Button" id="ShutdownButton"></button>
+    <button class="Button" id="RestartButton"></button>
+  </div>
+  <script src="./Client/JavaScript/Boot.js"></script>
+</body>
+</html>

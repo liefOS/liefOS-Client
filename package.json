@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "liefos-client",
+  "productName": "liefOS",
+  "version": "1.26.110",
+  "description": "",
+  "main": "liefOS.js",
+  "scripts": {
+    "start": "electron --no-deprecation .",
+    "start_dev": "electron .",
+    "build:mac": "electron-builder --mac --publish=never",
+    "build:win": "electron-builder --win --publish=never",
+    "build:linux": "electron-builder --linux --publish=never",
+    "build:all": "electron-builder --mac --win --linux --publish=never",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "keywords": [],
+  "author": "Liejan Lawrsel Maurin Luengo",
+  "license": "ISC",
+  "type": "commonjs",
+  "build": {
+    "appId": "com.liejan.liefos",
+    "productName": "liefOS",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "minimumSystemVersion": "13.0.0",
+      "target": [
+        "dmg"
+      ],
+      "icon": "build/icons/liefOS.icns",
+      "category": "public.app-category.utilities"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "build/icons/Windows.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "icon": "build/icons/Linux.png"
+    }
+  },
+  "devDependencies": {
+    "electron": "^42.4.0",
+    "electron-builder": "^26.15.3",
+    "electron-reloader": "^1.2.3"
+  },
+  "dependencies": {
+    "electron-window-state": "^5.0.3"
+  }
+}

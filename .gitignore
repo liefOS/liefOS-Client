@@ -1,0 +1,16 @@
+node_modules
+.npm
+.cache
+dist
+.DS_Store
+.env
+.idea
+.vscode
+*.log
+*.tsbuildinfo
+coverage
+*.tgz
+*.zip
+*.tar.gz
+*.bak
+*.tmp

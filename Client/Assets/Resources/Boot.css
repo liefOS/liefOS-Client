@@ -1,0 +1,189 @@
+@font-face {
+    font-family: 'Google Sans Flex';
+    src: url('../Fonts/googlesansflex/GoogleSansFlex-VariableFont_GRAD,ROND,opsz,slnt,wdth,wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-stretch: 25% 151%;
+    font-style: oblique 0deg 90deg;
+    font-display: swap;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 390px;
+    height: 844px;
+    background: transparent;
+    border-radius: 54px;
+    position: relative;
+    overflow: hidden;
+    -webkit-app-region: drag;
+    user-select: none;
+    font-family: 'Google Sans Flex', sans-serif;
+    color: #fff;
+}
+
+#ClientBackground {
+    width: 390px;
+    height: 844px;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    background: black;
+    border-radius: 54px;
+}
+
+.liefOSLogo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+}
+
+#ClientStatus {
+    display: none;
+    position: absolute;
+    top: calc(50% + 92px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 15px;
+    font-weight: 400;
+    color: #ffffff;
+    text-align: center;
+    line-height: 1.5;
+    width: 320px;
+    max-width: 90%;
+}
+
+#ClientProgress {
+    display: none;
+    position: absolute;
+    top: calc(50% + 92px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 235px;
+    text-align: center;
+}
+
+.ProgressBar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.ProgressBarState {
+    height: 100%;
+    background: #fff;
+    width: 0%;
+}
+
+#ProgressBarStatus {
+    font-size: 12px;
+    color: #A1A1A1;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+#Buttons {
+    display: none;
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.Button {
+    -webkit-app-region: no-drag;
+    appearance: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 45px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Google Sans Flex';
+    transition: all 0.2s ease;
+}
+
+.Button:hover {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.Button.primary {
+    background: #fff;
+    color: #000;
+    border-color: transparent;
+}
+
+.Button:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.Button.primary:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.Button.cancel {
+    background: none;
+    border: none;
+    color: #A1A1A1;
+    padding: 4px 12px;
+    font-size: 12px;
+}
+
+.Button.cancel:hover {
+    color: #fff;
+    background: none;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    border: 10px solid #000;
+    border-radius: 54px;
+    pointer-events: none;
+    z-index: 2147483647;
+}
+
+#DeveloperIndicator {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.35);
+    display: none;
+    text-align: center;
+    width: 90%;
+    line-height: 1.5;
+    -webkit-app-region: no-drag;
+}
+
+#DeveloperIndicator.active {
+    display: block;
+}
+
+body.fading-out {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+

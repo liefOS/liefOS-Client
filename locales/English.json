@@ -1,0 +1,123 @@
+{
+  "app": {
+    "name": "liefOS",
+    "copyright": "Copyright (c) 2024 - 2026 Liejan Lawrsel M. Luengo. All rights reserved."
+  },
+  "buttons": {
+    "cancel": "Cancel",
+    "install": "Install",
+    "shutDown": "Shut Down",
+    "restart": "Restart",
+    "reinstall": "Reinstall",
+    "installLatest": "Install Latest",
+    "installVersion": "Install {version}",
+    "updateTo": "Update to {version}"
+  },
+  "status": {
+    "fetchingInfo": "Fetching information...",
+    "checkingVersion": "Checking installed version...",
+    "checkingHash": "Checking security...",
+    "verifyingIntegrity": "Verifying integrity...",
+    "unzipping": "Loading liefOS software...",
+    "loading": "Loading...",
+    "cleanupTemp": "Cleaning up...",
+    "notInstalled": "Not installed",
+    "checkingVersionBoot": "Checking version..."
+  },
+  "prompts": {
+    "noValidInstall": "No valid installation found. Install {version}?",
+    "installPrompt": "Install {version}?",
+    "updatePrompt": "Update to {version}?",
+    "corruptedPrompt": "Your current installation is corrupted. Reinstall?"
+  },
+  "errors": {
+    "genericRestart": "Something went wrong, please restart.",
+    "bootFailed": "Boot failed",
+    "versionNotFound": "Version {version} not found. Please reinstall.",
+    "fetchFailed": "Failed to fetch version info: {message}",
+    "fetchFailedHttp": "Failed to fetch version info (HTTP {status})",
+    "missingHash": "Missing hash",
+    "integrityFailed": "Version integrity check failed. The local files do not match the official release.",
+    "invalidStructure": "Invalid version structure.",
+    "securityFailed": "Security verification failed: Downloaded file hash does not match official hash. Installation blocked.",
+    "serverStatus": "Server Status: {status}",
+    "invalidVersionData": "Invalid version data from server",
+    "watchdogTimeout": "Network is too unstable to continue.",
+    "noWindow": "No window",
+    "versionNotFoundSimple": "Version not found"
+  },
+  "clientUpdate": {
+    "message": "Update client to {version} first.",
+    "unknownVersion": "unknown",
+    "downloadButton": "Download new version",
+    "failed": "Connect to internet first."
+  },
+  "dev": {
+    "versionInfo": "Fetched Latest Version: {latest}  |  User Installed Version: {local}"
+  },
+  "download": {
+    "progressFormat": "{downloaded} MB / {total} MB at {speed}"
+  },
+  "log": {
+    "performingCleanup": "Performing cleanup before quit...",
+    "cleanupFailed": "Cleanup on quit failed: {message}",
+    "returningLauncher": "Returning to launcher...",
+    "deletedVersion": "Deleted version: {version}",
+    "cleaningTemp": "Cleaning up temporary files...",
+    "cleanupFailed2": "Cleanup failed: {message}",
+    "integrityVerified": "Integrity verified for v{version}",
+    "fetchedOnlineVersion": "Fetched online version: {version}"
+  },
+  "systemRequirements": {
+    "title": "System Requirement",
+    "message": "Recommended screen resolution not met."
+  },
+  "system": {
+    "platform": "Platform",
+    "architecture": "Architecture",
+    "cpuModel": "CPU Model",
+    "totalMemory": "Total Memory",
+    "uptime": "Uptime",
+    "hours": "hours"
+  },
+  "improperShutdown": {
+    "title": "liefOS wasn't properly shut off",
+    "subtitle": "Please shut down properly next time to avoid data loss or corruption",
+    "continue": "OK, Continue",
+    "shutDown": "Shut down"
+  },
+  "format": {
+    "speedMB": "{value} MB/s",
+    "speedKB": "{value} KB/s",
+    "speedB": "{value} B/s",
+    "zeroBytes": "0 Bytes",
+    "bytes": "Bytes",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB"
+  },
+  "menu": {
+    "file": "File",
+    "edit": "Edit",
+    "view": "View",
+    "window": "Window",
+    "help": "Help",
+    "about": "About liefOS Client",
+    "quit": "Quit liefOS",
+    "undo": "Undo",
+    "redo": "Redo",
+    "cut": "Cut",
+    "copy": "Copy",
+    "paste": "Paste",
+    "selectAll": "Select All",
+    "reload": "Reload",
+    "toggleDevTools": "Toggle Developer Tools",
+    "resetZoom": "Reset Zoom",
+    "zoomIn": "Zoom In",
+    "zoomOut": "Zoom Out",
+    "minimize": "Minimize",
+    "close": "Close",
+    "resetScaling": "Reset Scaling",
+    "saveWindowState": "Save Previous Window State"
+  }
+}
