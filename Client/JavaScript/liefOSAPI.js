@@ -40,7 +40,6 @@ contextBridge.exposeInMainWorld('liefOSAPI', {
     GetDevMode: () => ipcRenderer.invoke('get-dev-mode'),
     GetLocalVersion: () => ipcRenderer.invoke('get-local-version'),
     DeleteAllVersions: (KeepVersion) => ipcRenderer.invoke('delete-all-versions', KeepVersion),
-    SetOrientation: (Width, Height) => ipcRenderer.invoke('set-orientation', Width, Height),
     ClearSystemData: () => ipcRenderer.invoke('clear-system-data'),
     NavigateView: (Path) => ipcRenderer.send('navigate-view', Path),
     QuitToLauncher: () => ipcRenderer.send('quit-to-launcher'),

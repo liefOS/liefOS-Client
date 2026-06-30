@@ -8,12 +8,26 @@ const Os = require('os');
 const { execFile: ExecFile } = require('child_process');
 const { promisify: Promisify } = require('util');
 const ExecFileAsync = Promisify(ExecFile);
-const DevelopmentMode = true;
+// Set to true for development mode, it basically just shows the latest version and current version, oh and devtools.
+const DevelopmentMode = false;
+const GotTheLock = App.requestSingleInstanceLock();
 const macOSClient = process.platform === 'darwin';
 const windowsClient = process.platform === 'win32';
 const WindowState = require('electron-window-state');
-
+let MainWindow;
+const AppDataPath = App.getPath('userData');
+const VersionsPath = Path.join(AppDataPath, 'versions');
+const OsTempDir = Path.join(Os.tmpdir(), 'liefOS');
+const IconPath = Path.join(__dirname, 'build', 'icons', 'icon.icns');
+const BootedFlagPath = Path.join(AppDataPath, 'booted.flag');
+const SettingsPath = Path.join(AppDataPath, 'settings.json');
 let Locale;
+let ClientVersionInfo;
+let CachedMemoryUsage = null;
+let DownloadRequest = null;
+const MinWindowWidth = 390;
+const MinWindowHeight = 844;
+
 try {
     Locale = JSON.parse(FsSync.readFileSync(Path.join(__dirname, 'locales', 'English.json'), 'utf-8'));
 } catch (_) {
@@ -29,7 +43,6 @@ function LocStr(Key, Params = {}) {
     return Str;
 }
 
-const GotTheLock = App.requestSingleInstanceLock();
 if (!GotTheLock) {
     App.quit();
 } else {
@@ -44,14 +57,6 @@ if (!GotTheLock) {
 try {
     require('electron-reloader')(module);
 } catch (_) { }
-
-let MainWindow;
-const AppDataPath = App.getPath('userData');
-const VersionsPath = Path.join(AppDataPath, 'versions');
-const OsTempDir = Path.join(Os.tmpdir(), 'liefOS');
-const IconPath = Path.join(__dirname, 'build', 'icons', 'icon.icns');
-const BootedFlagPath = Path.join(AppDataPath, 'booted.flag');
-const SettingsPath = Path.join(AppDataPath, 'settings.json');
 
 function GetSetting(Key, Default) {
     try {
@@ -69,20 +74,14 @@ function SetSetting(Key, Val) {
         }
         D[Key] = Val;
         FsSync.writeFileSync(SettingsPath, JSON.stringify(D, null, 2));
-    } catch (_) {}
+    } catch (_) { }
 }
 
-let ClientVersionInfo;
 try {
     ClientVersionInfo = JSON.parse(FsSync.readFileSync(Path.join(__dirname, 'client.json'), 'utf-8'));
 } catch (_) {
     ClientVersionInfo = { ClientVersion: "0.0.0" };
 }
-
-let DownloadRequest = null;
-
-const MinWindowWidth = 390;
-const MinWindowHeight = 844;
 
 async function ExtractZip(ZipPath, DestPath) {
     if (process.platform === 'win32') {
@@ -138,12 +137,11 @@ function CreateApplicationMenu() {
         {
             label: L.window,
             submenu: [
-                { label: L.minimize, role: 'minimize' },
                 ...(IsMac ? [] : [{ label: L.close, role: 'close' }]),
                 { type: 'separator' },
                 {
                     label: L.resetScaling,
-                    click: function() {
+                    click: function () {
                         if (MainWindow) {
                             var Pos = MainWindow.getPosition();
                             var Sz = MainWindow.getSize();
@@ -159,7 +157,7 @@ function CreateApplicationMenu() {
                     label: L.saveWindowState,
                     type: 'checkbox',
                     checked: GetSetting('saveWindowState', true),
-                    click: function(Item) { SetSetting('saveWindowState', Item.checked); }
+                    click: function (Item) { SetSetting('saveWindowState', Item.checked); }
                 }
             ]
         },
@@ -269,7 +267,7 @@ App.on('before-quit', async () => {
 });
 
 IpcMain.on('quit-app', () => {
-    try { FsSync.unlinkSync(BootedFlagPath); } catch (_) {}
+    try { FsSync.unlinkSync(BootedFlagPath); } catch (_) { }
     App.quit();
 });
 
@@ -289,44 +287,16 @@ IpcMain.on('set-setting', (Event, Key, Val) => {
     SetSetting(Key, Val);
 });
 
-IpcMain.handle('set-orientation', (IpcEvent, Width, Height) => {
-    if (MainWindow) {
-        const Ratio = 390 / 844;
-        let NewWidth, NewHeight;
-        if (Width / Height > Ratio) {
-            NewHeight = Height;
-            NewWidth = Math.round(Height * Ratio);
-        } else {
-            NewWidth = Width;
-            NewHeight = Math.round(Width / Ratio);
-        }
-        NewWidth = Math.max(NewWidth, MinWindowWidth);
-        NewHeight = Math.max(NewHeight, MinWindowHeight);
-
-        const Displays = Screen.getAllDisplays();
-        const FitsOnDisplay = Displays.some(D =>
-            D.workAreaSize.width >= NewWidth && D.workAreaSize.height >= NewHeight
-        );
-        if (!FitsOnDisplay) {
-            return { success: false, error: 'Requested dimensions exceed available display space' };
-        }
-        MainWindow.setSize(NewWidth, NewHeight);
-        MainWindow.center();
-        return { success: true, width: NewWidth, height: NewHeight };
-    }
-    return { success: false };
-});
-
 IpcMain.on('navigate-view', (IpcEvent, Path) => {
     if (Path !== 'launcher.html') {
-        try { FsSync.writeFileSync(BootedFlagPath, '1'); } catch (_) {}
+        try { FsSync.writeFileSync(BootedFlagPath, '1'); } catch (_) { }
     }
     if (MainWindow) {
         var Inject = Path !== 'launcher.html';
         var Escaped = Path.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
         MainWindow.webContents.executeJavaScript(
             'NavigateWebView(\'' + Escaped + '\', ' + Inject + ');'
-        ).catch(function(Err) { console.error('Shell nav error:', Err); });
+        ).catch(function (Err) { console.error('Shell nav error:', Err); });
     }
 });
 
@@ -338,7 +308,7 @@ IpcMain.on('quit-to-launcher', () => {
         MainWindow.setPosition(Wx + Math.round((Ww - 390) / 2), Wy + Math.round((Wh - 844) / 2));
         MainWindow.webContents.executeJavaScript(
             'NavigateWebView(\'launcher.html\', false);'
-        ).catch(function(Err) { console.error('Shell nav error:', Err); });
+        ).catch(function (Err) { console.error('Shell nav error:', Err); });
     }
 });
 
@@ -704,7 +674,6 @@ IpcMain.handle('get-system-info', async () => {
     };
 });
 
-let CachedMemoryUsage = null;
 IpcMain.handle('get-memory-usage', () => {
     const Usage = process.memoryUsage();
     CachedMemoryUsage = {
@@ -715,5 +684,3 @@ IpcMain.handle('get-memory-usage', () => {
     };
     return CachedMemoryUsage;
 });
-
-
