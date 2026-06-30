@@ -25,6 +25,9 @@
     "directories": {
       "output": "dist"
     },
+    "publish": {
+      "provider": "github"
+    },
     "mac": {
       "minimumSystemVersion": "13.0.0",
       "target": [
