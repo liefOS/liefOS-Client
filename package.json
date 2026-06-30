@@ -35,6 +35,7 @@
     "differentialPackage": false
     },
     "mac": {
+      "artifactName": "liefOS-latest.dmg",
       "minimumSystemVersion": "13.0.0",
       "target": [
         "dmg"
@@ -43,12 +44,14 @@
       "category": "public.app-category.utilities"
     },
     "win": {
+      "artifactName": "liefOS-Setup-latest.exe",
       "target": [
         "nsis"
       ],
       "icon": "build/icons/Windows.ico"
     },
     "linux": {
+      "artifactName": "liefOS-latest.AppImage",
       "target": [
         "AppImage"
       ],
