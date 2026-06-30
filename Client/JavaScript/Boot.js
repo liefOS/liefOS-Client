@@ -267,6 +267,15 @@ async function CheckVersionAndBoot() {
             return;
         }
 
+        if (VersionData.InDevelopment === 'yes') {
+            ShowProgress(false);
+            document.getElementById('ClientStatus').innerHTML = '<strong>Early access!</strong><br><span style="font-size:14px;opacity:0.7">liefOS Software isn\'t available for public use yet, It is still in active development. Come back later please :)</span>';
+            document.getElementById('ClientStatus').style.display = 'block';
+            document.getElementById('CancelButton').style.display = 'none';
+            ShowButtons(false, true, false);
+            return;
+        }
+
         UpdateBootProgress(LocStr('status.checkingVersion'), 30);
         const LocalInfo = await window.liefOSAPI.GetLocalVersion();
 

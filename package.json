@@ -28,6 +28,12 @@
     "publish": {
       "provider": "github"
     },
+    "dmg": {
+    "writeUpdateInfo": false
+    },
+    "nsis": {
+    "differentialPackage": false
+    },
     "mac": {
       "minimumSystemVersion": "13.0.0",
       "target": [
