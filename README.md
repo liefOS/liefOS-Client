@@ -21,6 +21,15 @@ liefOS Client and liefOS are two <b>separate but related</b> projects.
 > Since liefOS is a small, personal project made for fun, I am not currently using paid developer certificates for code signing. Because of this, macOS and Windows **might** flag the download as **Unverified, Unknown Source or anything scary**. But don't worry, you can still use liefOS normally by following these tutorials depending on your host OS.
 
 **On macOS:** Gatekeeper, I'm not paying for it. I don't have all that money...
+
+**Option 1: (Recommended)**
+- 1. Run this in the Terminal: 
+```bash
+xattr -cr /Applications/liefOS.app
+```
+- 2. Open the app normally.
+
+**Option 2:**
 - 1. Open the app normally at first. After that, you will see a security warning stating the developer cannot be verified (I can't pay for the annual fee). Click "Done" to close the warning.
 
 - 2. Open System Settings or press the Apple logo in the menu bar and select System Settings.
